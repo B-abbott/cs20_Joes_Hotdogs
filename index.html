@@ -71,7 +71,7 @@
             cursor: pointer;
         }
         button:hover {
-            background: white;
+            background: white; 
             color: #007bff; 
         }
         
@@ -85,6 +85,7 @@
             <div class="txt">
             <h2>Menu</h2>
             <ul>
+                <!-- items to be displayed-->
                 <li>Hotdogs: $4.99</li>
                 <li>Fries: $3.99</li>
                 <li>Drinks: $1.79</li>
@@ -99,6 +100,7 @@
             const friPrice = 3.99
             const driPrice = 1.79
             document.getElementById("orderButton").addEventListener("click", function() {
+                //reads in values
                 let numDogs = parseInt(prompt("How many Hotdogs would you like?:"));
                 let numFries = parseInt(prompt("How many Fries would you like?:"));
                 let numSoda = parseInt(prompt("How many Drinks would you like?:"));
@@ -120,6 +122,7 @@
 
                     return strAmount;
                 }
+                //finds totals
                 let dogTotal = numDogs * dogPrice;
                 let friTotal = numFries * friPrice;
                 let sodaTotal = numSoda * driPrice;
