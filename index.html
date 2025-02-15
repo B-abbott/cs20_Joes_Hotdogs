@@ -1,0 +1,164 @@
+<html>
+    <head>
+    <meta charset="utf-8">
+    <title>Joe's Hotdogs</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            width: 100vw;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        .main {
+            background-image: url(images/JHLReal.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 90vh;
+            justify-content: center;
+            align-items: center;
+        }
+        footer {
+            text-align: center;
+            background-color: #f4f4f4;
+            height: 10vh;
+            padding: 20px;
+            border-top: 2px solid #ccc;
+        }
+        header {
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+            height: 10vh;
+            border-bottom: 2px solid #ccc;
+        }
+        .square {
+            width: 40%;
+            height: 70%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2;
+            top: 0%;
+            left: 30%;
+            position: relative;
+            color: white; /* White text color inside the bubble */
+            font-size: 75px; /* Adjust font size inside the bubbles */
+        }
+        h2 {
+            font-size: 150px;
+        }
+        .txt {
+            position: absolute;
+            left: 25%;
+            top: 15%;
+            font-size: 25px;
+        }
+        ul {
+           list-style: none;
+           font-size: 75px;
+        }
+        button {
+            position: absolute;
+            width: 40%;
+            height: 20%;
+            top: 65%;
+            left: 30%;
+            margin-top: 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: white;
+            color: #007bff; 
+        }
+        
+    </style>
+    </html>
+    </head>
+    <body>
+           <header></header>
+           <div class="main">
+            <div class="square">
+            <div class="txt">
+            <h2>Menu</h2>
+            <ul>
+                <li>Hotdogs: $4.99</li>
+                <li>Fries: $3.99</li>
+                <li>Drinks: $1.79</li>
+            </ul>
+            </div>
+           </div>
+           <button type="button" id="orderButton">Order</button>
+           </div>
+           <footer></footer>
+           <script>
+            const dogPrice = 4.99
+            const friPrice = 3.99
+            const driPrice = 1.79
+            document.getElementById("orderButton").addEventListener("click", function() {
+                let numDogs = parseInt(prompt("How many Hotdogs would you like?:"));
+                let numFries = parseInt(prompt("How many Fries would you like?:"));
+                let numSoda = parseInt(prompt("How many Drinks would you like?:"));
+                function showMoney(amount) {
+                    let rounded = Math.round(amount * 100) / 100; 
+                    let strAmount = rounded.toString();
+                    if (isNaN(amount)) {
+                    console.error('Invalid amount:', amount);
+                    return 'Invalid amount';
+                    } 
+                    if (strAmount.indexOf('.') === -1) {
+                    strAmount += ".00"; 
+                    } else {
+                        let decimalPart = strAmount.split('.')[1];
+                        if (decimalPart.length === 1) {
+                            strAmount += "0"; 
+                        }
+                    }
+
+                    return strAmount;
+                }
+                let dogTotal = numDogs * dogPrice;
+                let friTotal = numFries * friPrice;
+                let sodaTotal = numSoda * driPrice;
+
+                let subtotal = dogTotal + friTotal + sodaTotal;
+                let discount = 0;
+                if (subtotal > 30) {
+                    discount = 0.1 * subtotal; // 10% discount
+                }
+
+                // Subtotal after discount
+                let subtotalAfterDiscount = subtotal - discount;
+
+                // Tax calculation (assume 6.25% tax)
+                let tax = 0.0625 * subtotalAfterDiscount;
+
+                // Final total after tax
+                let finalTotal = subtotalAfterDiscount + tax;
+
+                // Format values as money
+                let formattedSubtotal = showMoney(subtotal);
+                let formattedDiscount = showMoney(discount);
+                let formattedSubtotalAfterDiscount = showMoney(subtotalAfterDiscount);
+                let formattedTax = showMoney(tax);
+                let formattedFinalTotal = showMoney(finalTotal);
+                document.querySelector(".txt").innerHTML = `
+                <strong>Order Summary:</strong> <br>
+                
+                Hotdogs (x${numDogs}): $${showMoney(dogTotal)} <br>
+                Fries (x${numFries}): $${showMoney(friTotal)} <br>
+                Drinks (x${numSoda}): $${showMoney(sodaTotal)} <br>
+                
+                <p>Subtotal (before discount): $${formattedSubtotal}</p>
+                <p>Discount: -$${formattedDiscount}</p>
+                <p>Subtotal (after discount): $${formattedSubtotalAfterDiscount}</p>
+                <p>Tax: $${formattedTax}</p>
+                <p><strong>Final Total: $${formattedFinalTotal}</strong></p>
+                `;
+                    });
+        </script>
+    </body>
+</html>
